@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="470.0" style="-fx-background-color: #FAFAFA;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.instagram.LogInPageController">
+   <children>
+      <ImageView fitHeight="465.0" fitWidth="345.0" layoutX="63.0" layoutY="81.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/logIn.png" />
+         </image>
+      </ImageView>
+      <TextField fx:id="username" layoutX="116.0" layoutY="219.0" prefHeight="34.0" prefWidth="239.0" promptText="Username" />
+      <PasswordField fx:id="password" layoutX="116.0" layoutY="258.0" prefHeight="34.0" prefWidth="239.0" promptText="Password" />
+      <Label alignment="CENTER" layoutX="116.0" layoutY="303.0" onMouseClicked="#logIn" prefHeight="30.0" prefWidth="239.0" style="-fx-background-color: #4A97F6; -fx-background-radius: 5;" text="Log In" textFill="WHITE">
+         <font>
+            <Font name="Arial Rounded MT Bold" size="16.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Label>
+      <Label alignment="CENTER" layoutX="279.0" layoutY="474.0" onMouseClicked="#switchToSignUpPage" prefHeight="30.0" prefWidth="49.0" style="-fx-background-color: white;" text="Sign up" textFill="#4a97f6">
+         <font>
+            <Font name="Arial Rounded MT Bold" size="12.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Label>
+      <Label fx:id="message" alignment="CENTER" layoutX="106.0" layoutY="344.0" prefHeight="99.0" prefWidth="260.0" style="-fx-background-color: white;" textFill="RED" />
+   </children>
+</AnchorPane>

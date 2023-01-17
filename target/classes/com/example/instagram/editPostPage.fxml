@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="470.0" style="-fx-background-color: #EBEBEB;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.instagram.EditPostPageController">
+   <children>
+      <ListView fx:id="commentsListView" layoutX="140.0" layoutY="115.0" prefHeight="460.0" prefWidth="300.0" style="-fx-border-color: #4A97F6; -fx-border-radius: 10; -fx-background-color: #EBEBEB;" />
+      <ImageView fx:id="likeImageView" fitHeight="52.0" fitWidth="37.0" layoutX="56.0" layoutY="140.0" onMouseClicked="#showLikes" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/like_t.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="dislikeImageView" fitHeight="69.0" fitWidth="37.0" layoutX="56.0" layoutY="248.0" onMouseClicked="#showDislikes" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/dislike_t.png" />
+         </image>
+      </ImageView>
+      <Label fx:id="likesLabel" alignment="CENTER" layoutX="49.0" layoutY="116.0" prefHeight="26.0" prefWidth="50.0" text="Label" />
+      <Label fx:id="dislikesLabel" alignment="CENTER" layoutX="49.0" layoutY="222.0" prefHeight="26.0" prefWidth="50.0" text="Label" />
+      <ImageView fx:id="commentImageView" fitHeight="52.0" fitWidth="37.0" layoutX="56.0" layoutY="356.0" nodeOrientation="RIGHT_TO_LEFT" onMouseClicked="#showComments" pickOnBounds="true">
+         <image>
+            <Image url="@images/comment.png" />
+         </image>
+      </ImageView>
+      <Label fx:id="commentsLabel" alignment="CENTER" layoutX="49.0" layoutY="324.0" prefHeight="26.0" prefWidth="50.0" text="Label" />
+      <ListView fx:id="likesListView" layoutX="140.0" layoutY="115.0" prefHeight="460.0" prefWidth="300.0" style="-fx-border-color: #4A97F6; -fx-border-radius: 10; -fx-background-color: #EBEBEB;" />
+      <ListView fx:id="dislikesListView" layoutX="140.0" layoutY="116.0" prefHeight="460.0" prefWidth="300.0" style="-fx-border-color: #4A97F6; -fx-border-radius: 10; -fx-background-color: #EBEBEB;" />
+      <ImageView fitHeight="41.0" fitWidth="39.0" onMouseClicked="#back" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/backBlack.png" />
+         </image>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </ImageView>
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="175.0" layoutY="29.0" opacity="0.28" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/insta.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>
