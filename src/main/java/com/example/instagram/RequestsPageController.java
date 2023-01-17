@@ -1,6 +1,7 @@
 package com.example.instagram;
 
 import com.example.instagram.models.FollowRequest;
+import com.example.instagram.models.Graph;
 import com.example.instagram.models.User;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -118,6 +119,7 @@ public class RequestsPageController implements Initializable {
 
     public void accept(String username) {
         SqlManager.getInstance().acceptRequest(username, user.getUsername());
+        Graph.getInstance().follows(username, user.getUsername());
         try {
             RequestsPageController.setUsername(USERNAME);
             PageSwitcher.switchToPage("requestsPage.fxml");

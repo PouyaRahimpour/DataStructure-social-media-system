@@ -1,5 +1,6 @@
 package com.example.instagram;
 
+import com.example.instagram.models.Graph;
 import com.example.instagram.models.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -49,6 +50,13 @@ public class EditProfilePageController implements Initializable {
     private Button btnBrowser;
     @FXML
     private ChoiceBox pageState;
+
+    @FXML
+    public void deleteAccount() throws IOException {
+        SqlManager.getInstance().deleteUser(USERNAME);
+        Graph.getInstance().deleteUser(USERNAME);
+        PageSwitcher.switchToPage("logInPage.fxml");
+    }
 
     @FXML
     public void handleBrowser() {

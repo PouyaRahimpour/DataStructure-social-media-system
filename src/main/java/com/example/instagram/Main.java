@@ -1,5 +1,6 @@
 package com.example.instagram;
 
+import com.example.instagram.models.Graph;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -32,13 +33,15 @@ public class Main extends Application {
 
     public static void main(String[] args) {
         launch();
+
 //        ArrayList<ArrayList<Integer>> tmp;
 //        tmp = new ArrayList<>(5);
 //        for (int i=0; i<5; i++) {
 //            tmp.add(new ArrayList<Integer>(4));
 //        }
-//
 //        System.out.println(tmp);
+
+//        Graph.getInstance().print();
     }
 
 }

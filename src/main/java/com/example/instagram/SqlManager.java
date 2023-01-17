@@ -1,9 +1,6 @@
 package com.example.instagram;
 
-import com.example.instagram.models.Comment;
-import com.example.instagram.models.FollowRequest;
-import com.example.instagram.models.Post;
-import com.example.instagram.models.User;
+import com.example.instagram.models.*;
 import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
 
@@ -51,6 +48,7 @@ public class SqlManager {
             Statement s = con.prepareStatement(sqlCmd);
             s.execute(sqlCmd);
             con.close();
+            Graph.getInstance().addUser(user.getUsername());
             System.out.println("user '" + user.getUsername() + "' successfully ADDED to the database.");
             return true;
         } catch (Exception ex) {
@@ -65,6 +63,19 @@ public class SqlManager {
             String sqlCmd = String.format("DELETE FROM `users` WHERE `username`='%s';", username);
             Statement s = con.prepareStatement(sqlCmd);
             s.execute(sqlCmd);
+            sqlCmd = String.format("DELETE FROM `user_info` WHERE `username`='%s';", username);
+            s = con.prepareStatement(sqlCmd);
+            s.execute(sqlCmd);
+            sqlCmd = String.format("DELETE FROM `posts` WHERE `username`='%s';", username);
+            s = con.prepareStatement(sqlCmd);
+            s.execute(sqlCmd);
+            sqlCmd = String.format("DELETE FROM `follow_request` WHERE `followerUsername`='%s';", username);
+            s = con.prepareStatement(sqlCmd);
+            s.execute(sqlCmd);
+            sqlCmd = String.format("DELETE FROM `follows` WHERE `followerUsername`='%s' OR `followingUsername`='%s';", username, username);
+            s = con.prepareStatement(sqlCmd);
+            s.execute(sqlCmd);
+
             con.close();
             System.out.println("user '" + username + "' successfully DELETED to the database.");
             return true;

@@ -24,12 +24,14 @@ public class Graph {
     }
     private void setAdjMatrix() {
         for (int i=0; i<usernames.size()+1; i++) {
-            adjMatrix.add(new ArrayList<>(usernames.size()+1));
-            for (int x = 0; x< usernames.size()+1; x++) {
+            adjMatrix.add(new ArrayList<>(usernames.size() + 1));
+            for (int x = 0; x < usernames.size() + 1; x++) {
                 adjMatrix.get(i).add(0.0);
             }
+        }
+        for (int i=0; i<usernames.size(); i++) {
             String username = usernames.get(i);
-            ArrayList<String> followers = SqlManager.getInstance().getFollowers(username);
+            ArrayList<String> followers = SqlManager.getInstance().getFollowings(username);
             for (String follower: followers) {
                 int j = usernames.indexOf(follower);
                 adjMatrix.get(i+1).set(j+1, 1.0);
@@ -38,11 +40,12 @@ public class Graph {
             }
         }
     }
+
     public ArrayList<String> recommend(String username, int n) {
         int index = usernames.indexOf(username);
         setProbabilities(username);
         ArrayList<String> recommendedUsers = new ArrayList<>();
-        for (int i=0; i<Math.min(n, usernames.size()); i++) {
+        for (int i=0; i<Math.min(n, usernames.size()-1); i++) {
             int maxIndex = 0;
             double max = 0.0;
             for (int j=1; j<usernames.size()+1; j++) {
@@ -83,20 +86,55 @@ public class Graph {
 //        }
 //    }
     private void setProbabilities(String username) {
-        setAdjMatrix();
         int index = usernames.indexOf(username)+1;
         for (int i=1; i<usernames.size()+1; i++) {
             if (i == index) {
                 continue;
             }
-            int bothFollowingNum = 0;
-            for (int k=0; k< usernames.size()+1; k++) {
+            double bothFollowingNum = 0.0;
+            for (int k=1; k< usernames.size()+1; k++) {
                 if (adjMatrix.get(index).get(k) == 1 && adjMatrix.get(i).get(k) == 1) {
                     bothFollowingNum += 1;
                 }
             }
             double numberOfFollowers = adjMatrix.get(0).get(index);
-            adjMatrix.get(index).set(i, bothFollowingNum/numberOfFollowers);
+            if (numberOfFollowers != 0) {
+                adjMatrix.get(index).set(i, bothFollowingNum/numberOfFollowers);
+            }
+
+        }
+        print();
+    }
+
+    public void addUser(String username) {
+        usernames.add(username);
+        adjMatrix.add(new ArrayList<>(usernames.size()));
+        for (int i = 0; i<usernames.size()+1; i++) {
+            adjMatrix.get(i).add(0.0);
+        }
+    }
+    public void deleteUser(String username) {
+        int index = usernames.indexOf(username);
+        adjMatrix.remove(index+1);
+        usernames.remove(username);
+        for (int i=0; i<usernames.size()+1; i++) {
+            adjMatrix.get(i).remove(index);
+        }
+    }
+    public void follows(String username1, String username2) {
+        int index1 = usernames.indexOf(username1);
+        int index2 = usernames.indexOf(username2);
+        adjMatrix.get(index1).set(index2, 1.0);
+    }
+    public void unfollows(String username1, String username2) {
+        int index1 = usernames.indexOf(username1);
+        int index2 = usernames.indexOf(username2);
+        adjMatrix.get(index1).set(index2, 0.0);
+    }
+    public void print() {
+        System.out.println(usernames);
+        for (int i=0; i<adjMatrix.size(); i++) {
+            System.out.println(adjMatrix.get(i));
         }
     }
 }

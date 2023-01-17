@@ -1,5 +1,6 @@
 package com.example.instagram;
 
+import com.example.instagram.models.Graph;
 import com.example.instagram.models.User;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -32,6 +33,7 @@ public class SignUpPageController implements Initializable{
                     mobileNumber.getText()
             );
             SqlManager.getInstance().addUser(user);
+            Graph.getInstance().addUser(user.getUsername());
             PersonalPageController.setUsername(user.getUsername());
             PageSwitcher.switchToPage("personalPage.fxml");
         }

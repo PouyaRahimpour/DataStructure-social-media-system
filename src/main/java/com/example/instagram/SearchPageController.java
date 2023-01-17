@@ -1,5 +1,6 @@
 package com.example.instagram;
 
+import com.example.instagram.models.Graph;
 import com.example.instagram.models.Post;
 import com.example.instagram.models.User;
 import javafx.beans.value.ChangeListener;
@@ -10,6 +11,7 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import javafx.scene.text.Font;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 
@@ -25,6 +27,7 @@ public class SearchPageController implements Initializable {
     private static boolean autoSearch;
     private static String autoSearchUsername;
     private ArrayList<Post> posts;
+    private ArrayList<String> recommendation;
     @FXML
     private ListView<Pane> listView;
     @FXML
@@ -48,6 +51,8 @@ public class SearchPageController implements Initializable {
     private ImageView profImage;
     @FXML
     private ImageView frontImage;
+    @FXML
+    private ListView recommended;
 
     public static void setAutoSearchUsername(String autoSearchUsername) {
         SearchPageController.autoSearchUsername = autoSearchUsername;
@@ -71,6 +76,7 @@ public class SearchPageController implements Initializable {
     }
     private void unfollow() {
         SqlManager.getInstance().deleteFollowing(user.getUsername(), user2.getUsername());
+        Graph.getInstance().unfollows(user.getUsername(), user2.getUsername());
         apply.setOpacity(0.3);
         apply.setDisable(true);
     }
@@ -177,11 +183,72 @@ public class SearchPageController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         user = SqlManager.getInstance().findUser(USERNAME);
+        recommendation = Graph.getInstance().recommend(USERNAME, 6);
         setVisible(false);
         if (autoSearch) {
             username.setText(autoSearchUsername);
             search();
+        } else {
+            userRecommend();
         }
+    }
+    @FXML
+    void userRecommend() {
+        while (recommended.getItems().size() > 0) recommended.getItems().remove(0);
+        setVisible(false);
+        recommended.setVisible(true);
+        for (String s : recommendation) {
+            User u = SqlManager.getInstance().findUser(s);
+            // 300 460
+            Pane pane = new Pane();
+            pane.setPrefSize(300, 80);
+            pane.setOpacity(0.8);
+            pane.setOnMouseEntered(mouseEvent -> {
+                pane.setOpacity(1);
+            });
+            pane.setOnMouseExited(mouseEvent -> {
+                pane.setOpacity(0.8);
+            });
+            try {
+                ImageView iv = new ImageView(new Image(new FileInputStream(u.getProfImagePath())));
+//                iv.setOnMouseClicked(mouseEvent -> {
+//                    try {
+//                        searchUser(u.getUsername());
+//                    } catch (IOException e) {
+//                        e.printStackTrace();
+//                    }
+//                });
+                iv.setFitWidth(80);
+                iv.setFitHeight(80);
+                pane.getChildren().add(iv);
+                iv.setTranslateX(0);
+                iv.setTranslateY(0);
+                ImageView iv2 = new ImageView(new Image(new FileInputStream(
+                        "C:\\Users\\Asus\\IdeaProjects\\instagram\\src\\main" +
+                                "\\resources\\com\\example\\instagram\\images\\circle4.png")));
+                iv2.setFitWidth(80);
+                iv2.setFitHeight(80);
+                pane.getChildren().add(iv2);
+                iv2.setTranslateX(0);
+                iv2.setTranslateY(0);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+            Label l = new Label();
+            l.setText(u.getUsername());
+            l.setFont(Font.font("Lucida Fax", 13));
+            l.setPrefSize(80, 80);
+            l.setTranslateX(100);
+            l.setTranslateY(0);
+            pane.getChildren().add(l);
+            recommended.getItems().add(pane);
+        }
+        recommended.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Pane>() {
+            @Override
+            public void changed(ObservableValue<? extends Pane> observableValue, Pane webView, Pane t1) {
+                currentPane = (Pane) recommended.getSelectionModel().getSelectedItem();
+            }
+        });
     }
 
     private void setVisible(boolean b) {
@@ -196,6 +263,8 @@ public class SearchPageController implements Initializable {
         postLabel.setVisible(b);
         followingsLabel.setVisible(b);
         followersLabel.setVisible(b);
+
+        recommended.setVisible(b);
     }
 
     public void viewPost(Post p) {
