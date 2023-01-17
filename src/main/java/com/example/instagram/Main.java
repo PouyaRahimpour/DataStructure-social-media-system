@@ -11,6 +11,7 @@ import javafx.stage.Stage;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class Main extends Application {
     public static Stage stage;
@@ -31,6 +32,13 @@ public class Main extends Application {
 
     public static void main(String[] args) {
         launch();
+//        ArrayList<ArrayList<Integer>> tmp;
+//        tmp = new ArrayList<>(5);
+//        for (int i=0; i<5; i++) {
+//            tmp.add(new ArrayList<Integer>(4));
+//        }
+//
+//        System.out.println(tmp);
     }
 
 }

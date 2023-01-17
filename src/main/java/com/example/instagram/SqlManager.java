@@ -597,5 +597,22 @@ public class SqlManager {
         }
         return messages;
     }
+
+    public ArrayList<String> getAllUsernames() {
+        Connection con = connectDb();
+        ArrayList<String> users = new ArrayList<>();
+        try {
+            PreparedStatement ps = con.prepareStatement("SELECT * FROM users");
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                users.add(rs.getString("username"));
+            }
+            con.close();
+        } catch (Exception e) {
+            System.out.println("Couldn't get all usernames");
+            System.out.println(e.getMessage());
+        }
+        return users;
+    }
 }
 
