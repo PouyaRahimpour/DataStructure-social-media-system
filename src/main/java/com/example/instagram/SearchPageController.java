@@ -11,6 +11,8 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
@@ -41,6 +43,8 @@ public class SearchPageController implements Initializable {
     private boolean follows, isPublic;
 
     @FXML
+    private Rectangle backg;
+    @FXML
     private Label postsN, followingsN, followersN, bio;
     @FXML
     private Label label;
@@ -51,8 +55,7 @@ public class SearchPageController implements Initializable {
     private ImageView profImage;
     @FXML
     private ImageView frontImage;
-    @FXML
-    private Pane recomPane;
+
     @FXML
     private ListView<Pane> recommended;
 
@@ -90,6 +93,7 @@ public class SearchPageController implements Initializable {
 
     public void search() {
         setVisible(false);
+        backg.setVisible(true);
         user2 = SqlManager.getInstance().findUser(username.getText());
         follows = SqlManager.getInstance().getFollowers(user2.getUsername()).contains(user.getUsername());
         isPublic = user2.getPageState().equals("public");
@@ -270,8 +274,7 @@ public class SearchPageController implements Initializable {
         postLabel.setVisible(b);
         followingsLabel.setVisible(b);
         followersLabel.setVisible(b);
-
-        recomPane.setVisible(b);
+        backg.setVisible(b);
         recommended.setVisible(b);
     }
 

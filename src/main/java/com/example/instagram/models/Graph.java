@@ -2,6 +2,7 @@ package com.example.instagram.models;
 
 import com.example.instagram.SqlManager;
 
+import java.nio.charset.StandardCharsets;
 import java.sql.Array;
 import java.util.*;
 
@@ -22,6 +23,7 @@ public class Graph {
         adjMatrix = new ArrayList<>(usernames.size()+1);
         setAdjMatrix();
     }
+
     private void setAdjMatrix() {
         for (int i=0; i<usernames.size()+1; i++) {
             adjMatrix.add(new ArrayList<>(usernames.size() + 1));
@@ -31,6 +33,7 @@ public class Graph {
         }
         for (int i=0; i<usernames.size(); i++) {
             String username = usernames.get(i);
+            // getting all edges to be set in the graph
             ArrayList<String> followers = SqlManager.getInstance().getFollowings(username);
             for (String follower: followers) {
                 int j = usernames.indexOf(follower);
@@ -39,6 +42,7 @@ public class Graph {
                 adjMatrix.get(0).set(j+1, adjMatrix.get(0).get(j+1)+1.0);
             }
         }
+        print();
     }
 
     public ArrayList<String> recommend(String username) {
@@ -104,7 +108,6 @@ public class Graph {
             if (numberOfFollowers != 0) {
                 adjMatrix.get(index).set(i, bothFollowingNum/numberOfFollowers);
             }
-
         }
         print();
     }
@@ -116,11 +119,16 @@ public class Graph {
             adjMatrix.get(i).add(0.0);
         }
     }
+
     public void deleteUser(String username) {
-        int index = usernames.indexOf(username);
-        adjMatrix.remove(index+1);
+        int index = usernames.indexOf(username)+1;
+        adjMatrix.remove(index);
         usernames.remove(username);
         for (int i=0; i<usernames.size()+1; i++) {
+            double d = adjMatrix.get(i).get(index);
+            if (d == 1) {
+                adjMatrix.get(i).set(0, adjMatrix.get(i).get(0)-1.0);
+            }
             adjMatrix.get(i).remove(index);
         }
     }
@@ -142,5 +150,27 @@ public class Graph {
         for (int i=0; i<adjMatrix.size(); i++) {
             System.out.println(adjMatrix.get(i));
         }
+    }
+
+    public ArrayList<String> findFollowers(String username) {
+        ArrayList<String> followers = new ArrayList<>();
+        int index = usernames.indexOf(username)+1;
+        for (int i=1; i<usernames.size()+1; i++) {
+            if (adjMatrix.get(i).get(index) == 1.0) {
+                followers.add(usernames.get(i-1));
+            }
+        }
+        return followers;
+    }
+
+    public ArrayList<String> findFollowings(String username) {
+        ArrayList<String> followings = new ArrayList<>();
+        int index = usernames.indexOf(username)+1;
+        for (int i=1; i<usernames.size()+1; i++) {
+            if (adjMatrix.get(index).get(i) == 1.0) {
+                followings.add(usernames.get(i-1));
+            }
+        }
+        return followings;
     }
 }

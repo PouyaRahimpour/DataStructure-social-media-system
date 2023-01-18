@@ -9,22 +9,22 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="470.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.instagram.SearchPageController">
    <children>
-      <Pane fx:id="recomPane" layoutX="-1.0" layoutY="143.0" prefHeight="458.0" prefWidth="470.0" style="-fx-background-color: #EBEBEB;">
-         <children>
-            <ListView fx:id="recommended" prefHeight="458.0" prefWidth="470.0">
-               <effect>
-                  <InnerShadow />
-               </effect>
-            </ListView>
-         </children>
-      </Pane>
+      <ListView fx:id="recommended" layoutY="143.0" prefHeight="458.0" prefWidth="470.0">
+         <effect>
+            <InnerShadow />
+         </effect>
+      </ListView>
+      <Rectangle fx:id="backg" arcHeight="5.0" arcWidth="5.0" fill="#ebebeb" height="458.0" layoutX="-4.0" layoutY="145.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" width="478.0">
+         <effect>
+            <InnerShadow />
+         </effect>
+      </Rectangle>
       <TextField fx:id="username" layoutX="104.0" layoutY="62.0" prefHeight="34.0" prefWidth="239.0" promptText="Username" />
       <ImageView fitHeight="44.0" fitWidth="37.0" layoutX="343.0" layoutY="61.0" onMouseClicked="#search" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -35,28 +35,19 @@
          </cursor>
       </ImageView>
       <Line endX="369.0000305175781" endY="7.62939453125E-6" layoutX="100.0" layoutY="144.0" opacity="0.2" startX="-100.0" />
-      <ListView layoutY="143.0" prefHeight="458.0" prefWidth="470.0" style="-fx-background-color: #EBEBEB;">
-         <effect>
-            <InnerShadow />
-         </effect>
-      </ListView>
       <Label fx:id="label" layoutX="124.0" layoutY="108.0" prefHeight="22.0" prefWidth="200.0" textFill="RED" />
       <ListView fx:id="listView" layoutX="45.0" layoutY="358.0" prefHeight="194.0" prefWidth="380.0" />
-      <ImageView fx:id="profImage" fitHeight="119.0" fitWidth="126.0" layoutX="38.0" layoutY="198.0" pickOnBounds="true" />
+      <ImageView fx:id="profImage" fitHeight="108.0" fitWidth="110.0" layoutX="44.0" layoutY="203.0" pickOnBounds="true" />
       <ImageView fx:id="frontImage" fitHeight="119.0" fitWidth="153.0" layoutX="40.0" layoutY="198.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@images/circle4.png" />
          </image>
       </ImageView>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="128.0" layoutX="19.0" layoutY="189.0" stroke="#ebebeb" strokeType="INSIDE" style="-fx-fill: #EBEBEB;" width="22.0" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="14.0" layoutX="29.0" layoutY="187.0" stroke="#ebebeb" strokeType="INSIDE" style="-fx-fill: #EBEBEB;" width="145.0" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="26.0" layoutX="39.0" layoutY="318.0" stroke="#ebebeb" strokeType="INSIDE" style="-fx-fill: #EBEBEB;" width="126.0" />
-      <Label fx:id="fullName" alignment="CENTER" contentDisplay="CENTER" layoutX="39.0" layoutY="319.0" prefHeight="18.0" prefWidth="126.0">
+      <Label fx:id="fullName" alignment="CENTER" contentDisplay="CENTER" layoutX="39.0" layoutY="320.0" prefHeight="18.0" prefWidth="126.0">
          <font>
             <Font name="Arial Rounded MT Bold" size="12.0" />
          </font>
       </Label>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="128.0" layoutX="158.0" layoutY="196.0" stroke="#ebebeb" strokeType="INSIDE" style="-fx-fill: #EBEBEB;" width="29.0" />
       <Label fx:id="bio" alignment="TOP_LEFT" layoutX="190.0" layoutY="197.0" prefHeight="86.0" prefWidth="218.0" style="-fx-border-color: gray; -fx-border-radius: 10;" />
       <Label fx:id="postsN" alignment="CENTER" layoutX="197.0" layoutY="289.0" prefHeight="53.0" prefWidth="61.0">
          <font>
