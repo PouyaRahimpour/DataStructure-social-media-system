@@ -76,6 +76,7 @@ public class PersonalPageController implements Initializable {
 
     public void switchToSearchPage() throws IOException {
         SearchPageController.setUser(USERNAME);
+        SearchPageController.setAutoSearch(false);
         PageSwitcher.switchToPage("searchPage.fxml");
     }
 

@@ -3,7 +3,7 @@ package com.example.instagram.models;
 import com.example.instagram.SqlManager;
 
 import java.sql.Array;
-import java.util.ArrayList;
+import java.util.*;
 
 public class Graph {
     private ArrayList<String> usernames;
@@ -41,22 +41,25 @@ public class Graph {
         }
     }
 
-    public ArrayList<String> recommend(String username, int n) {
-        int index = usernames.indexOf(username);
+    public ArrayList<String> recommend(String username) {
+        int index = usernames.indexOf(username)+1;
         setProbabilities(username);
-        ArrayList<String> recommendedUsers = new ArrayList<>();
-        for (int i=0; i<Math.min(n, usernames.size()-1); i++) {
-            int maxIndex = 0;
-            double max = 0.0;
-            for (int j=1; j<usernames.size()+1; j++) {
-                if (adjMatrix.get(index).get(j) > max) {
-                    max = adjMatrix.get(index).get(j);
-                    maxIndex = j;
-                }
-            }
-            recommendedUsers.add(usernames.get(maxIndex));
+        ArrayList<String> rec = new ArrayList<>();
+        Map<String, Double> recommendedUsers = new HashMap<>();
+        for (int i=1; i<usernames.size()+1; i++) {
+            recommendedUsers.put(usernames.get(i-1), adjMatrix.get(index).get(i));
         }
-        return recommendedUsers;
+        List<Map.Entry<String, Double>> nlist = new  ArrayList<>(recommendedUsers.entrySet());
+        nlist.sort(Map.Entry.comparingByValue(Comparator.reverseOrder()));
+
+        for (Map.Entry o: nlist) {
+            Double tmp = (Double) o.getValue();
+            if (tmp < 1.0 && !o.getKey().equals(username)) {
+                rec.add((String) o.getKey());
+            }
+        }
+
+        return rec;
     }
 //    private void setProbabilities(String username) {
 //        setAdjMatrix();
@@ -121,16 +124,19 @@ public class Graph {
             adjMatrix.get(i).remove(index);
         }
     }
+
     public void follows(String username1, String username2) {
         int index1 = usernames.indexOf(username1);
         int index2 = usernames.indexOf(username2);
         adjMatrix.get(index1).set(index2, 1.0);
     }
+
     public void unfollows(String username1, String username2) {
         int index1 = usernames.indexOf(username1);
         int index2 = usernames.indexOf(username2);
         adjMatrix.get(index1).set(index2, 0.0);
     }
+
     public void print() {
         System.out.println(usernames);
         for (int i=0; i<adjMatrix.size(); i++) {

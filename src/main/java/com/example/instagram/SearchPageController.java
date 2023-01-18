@@ -52,7 +52,9 @@ public class SearchPageController implements Initializable {
     @FXML
     private ImageView frontImage;
     @FXML
-    private ListView recommended;
+    private Pane recomPane;
+    @FXML
+    private ListView<Pane> recommended;
 
     public static void setAutoSearchUsername(String autoSearchUsername) {
         SearchPageController.autoSearchUsername = autoSearchUsername;
@@ -183,7 +185,12 @@ public class SearchPageController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         user = SqlManager.getInstance().findUser(USERNAME);
-        recommendation = Graph.getInstance().recommend(USERNAME, 6);
+        ArrayList<String> rec = Graph.getInstance().recommend(USERNAME);
+        recommendation = new ArrayList<>();
+        for (int i=0; i<Math.min(rec.size(), 6);i++) {
+            recommendation.add(rec.get(i));
+        }
+
         setVisible(false);
         if (autoSearch) {
             username.setText(autoSearchUsername);
@@ -246,7 +253,7 @@ public class SearchPageController implements Initializable {
         recommended.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Pane>() {
             @Override
             public void changed(ObservableValue<? extends Pane> observableValue, Pane webView, Pane t1) {
-                currentPane = (Pane) recommended.getSelectionModel().getSelectedItem();
+                currentPane = recommended.getSelectionModel().getSelectedItem();
             }
         });
     }
@@ -264,7 +271,12 @@ public class SearchPageController implements Initializable {
         followingsLabel.setVisible(b);
         followersLabel.setVisible(b);
 
+        recomPane.setVisible(b);
         recommended.setVisible(b);
+    }
+
+    public static void setAutoSearch(boolean autoSearch) {
+        SearchPageController.autoSearch = autoSearch;
     }
 
     public void viewPost(Post p) {
