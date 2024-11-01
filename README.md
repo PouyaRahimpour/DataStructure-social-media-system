@@ -1,13 +1,10 @@
-# پروژه پایانی: شبکه اجتماعی
-در دنیای امروز، شبکه‌های اجتماعی گستره خاصی دارند و در تمام سطوح فرهنگی و در تمامی جوامع در دسترس هستند. شبکه‌های اجتماعی مفهوم جدیدی نیستند؛ انسان‌ها از قرن‌ها پیش که گرد آتش می‌نشستند و برای هم داستان می‌گفتند مشغول تشکیل شبکه‌های اجتماعی بودند. در این پروژه نیز ما قصد داریم تا یک شبکه اجتماعی برای ارتباطات دانشجویان سراسر جهان تهیه کنیم.
+# Social Network System
+This is an application similar to Instagram that uses Graph data structure (Adjacency Matrix) to maintain relationships between users and suggests you to follow new people based on that.
+# Usage
+as this application uses database you need to setup a database on your local host.
+for windows you can use Xamp.
 
-# منابع آموزشی گیت و گیت‌هاب
-- [آموزش گیت (Git)، گیت هاب و گیت لب - فرادرس (جادی میرمیرانی)](https://faradars.org/courses/fvgit9609-git-github-gitlab)
-- [۲۰ دستور پراستفاده در گیت به همراه مثال](https://dzone.com/articles/top-20-git-commands-with-examples)
-- [آموزش کاربردی Git](https://gotoclass.ir/courses/git/)
-- [چیت‌شیت گیت کوئرا](https://quera.org/college/cheatsheet/git)
+Run (not complete)
+```shell
 
-# نکات مهم
-- استفاده از گیت و گیت‌هاب در انجام پروژه **اجباری** است.
-- تاریخ ارائه شفاهی، متعاقباً اطلاع‌رسانی می‌شود.
-- مهلت ارسال پروژه: **۲۴ دی ماه ۱۴۰۱**
+```
