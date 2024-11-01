@@ -113,7 +113,7 @@ public class EditProfilePageController implements Initializable {
         birthday.setAccessibleText(user.getBirthday());
         fileChooser.getExtensionFilters().addAll(
 //                new FileChooser.ExtensionFilter("All files", "*.*"),
-                new FileChooser.ExtensionFilter("Images", "*.png", "*.jpg", "*.gif")
+                new FileChooser.ExtensionFilter("Images", "*.png", "*.jpg", "*.gif", "*.jfif")
 //                new FileChooser.ExtensionFilter("Text File", "*.txt")
         );
         pageState.setValue(user.getPageState());

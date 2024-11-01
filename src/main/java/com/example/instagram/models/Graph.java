@@ -100,12 +100,12 @@ public class Graph {
             }
             double bothFollowingNum = 0.0;
             for (int k=1; k< usernames.size()+1; k++) {
-                if (adjMatrix.get(index).get(k) == 1 && adjMatrix.get(i).get(k) == 1) {
+                if (adjMatrix.get(k).get(index) == 1 && adjMatrix.get(k).get(i) == 1) {
                     bothFollowingNum += 1;
                 }
             }
             double numberOfFollowers = adjMatrix.get(0).get(index);
-            if (numberOfFollowers != 0) {
+            if (numberOfFollowers != 0 && adjMatrix.get(index).get(i) != 1.0) {
                 adjMatrix.get(index).set(i, bothFollowingNum/numberOfFollowers);
             }
         }
@@ -124,7 +124,7 @@ public class Graph {
         int index = usernames.indexOf(username)+1;
         adjMatrix.remove(index);
         usernames.remove(username);
-        for (int i=0; i<usernames.size()+1; i++) {
+        for (int i=0; i<usernames.size(); i++) {
             double d = adjMatrix.get(i).get(index);
             if (d == 1) {
                 adjMatrix.get(i).set(0, adjMatrix.get(i).get(0)-1.0);

@@ -79,7 +79,7 @@ public class AddPostPageController implements Initializable {
         fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().addAll(
 //                new FileChooser.ExtensionFilter("All files", "*.*"),
-                new FileChooser.ExtensionFilter("Images", "*.png", "*.jpg", "*.gif")
+                new FileChooser.ExtensionFilter("Images", "*.png", "*.jpg", "*.gif", "*.jfif")
 //                new FileChooser.ExtensionFilter("Text File", "*.txt")
         );
     }
